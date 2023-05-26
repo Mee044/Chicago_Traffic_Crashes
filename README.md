@@ -10,7 +10,7 @@
 ### A dataset contatining 39 columns and 686,276 rows
 
 ### View the [Original Data Set](https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if)
-### View the [Spilted Data Set by](https://github.com/iweld/chicago_traffic_crashes)
+### View the [Spilted Data Set](https://github.com/iweld/chicago_traffic_crashes)
 
 ### View the [Project Visualization](https://public.tableau.com/views/ChicagoTrafficCrashes/ChicagoTrafficCrashes?:language=en-US&:display_count=n&:origin=viz_share_link)
 
