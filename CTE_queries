@@ -1,0 +1,47 @@
+-- What are the top 5 Crash Types?
+-- CTE 
+WITH crash_type AS(
+	-- inner query
+	SELECT 
+		first_crash_type, 
+		count(*) AS cnt_crash,
+		RANK() OVER (ORDER BY count(*) DESC) AS crash_rank
+	FROM crash_timeline
+	GROUP BY first_crash_type
+)
+     -- outer query
+SELECT 
+	first_crash_type as crash_type, cnt_crash
+FROM crash_type
+WHERE crash_rank <= 5;
+
+-- How many road defects caused crashes?
+-- CTE 
+WITH road_defects AS(
+	SELECT road_defect,
+	COUNT(*) AS cnt_road_df
+	FROM crash_timeline
+	GROUP BY road_defect
+)
+SELECT road_defect AS road_df, cnt_road_df AS total_road_defect
+FROM road_defects
+ORDER BY total_road_defect DESC;
+
+-- What are the top 10 deadliest streets?
+-- CTE 
+WITH deadliest_streets AS (
+	SELECT
+		street_name,
+		injuries_fatal,
+		count(*) AS cnt_injuries_fetal,
+		RANK() OVER (ORDER BY count(*) DESC) AS dead_street_rank
+	FROM
+		crash_timeline
+	WHERE injuries_fatal<>'0'
+	GROUP BY
+		injuries_fatal,street_name
+)
+SELECT
+	street_name, injuries_fatal, cnt_injuries_fetal
+FROM deadliest_streets
+WHERE dead_street_rank <=10
