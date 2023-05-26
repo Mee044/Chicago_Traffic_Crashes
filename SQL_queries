@@ -1,0 +1,28 @@
+-- What is the earliest and latest date of recorded crashes?
+SELECT MAX(crash_date)AS latest_date, MIN(crash_date)AS earliest_date
+FROM crashes;
+
+-- What is the number of reported crashes per year?
+--SELECT EXTRACT('YEAR' FROM DATE));
+SELECT
+	EXTRACT('YEAR' FROM crash_date) AS crash_year,
+	count(*) AS reported_crashes
+FROM
+	crashes
+GROUP BY
+	crash_year
+ORDER BY 
+	crash_year;
+  
+-- What are the different kinds of road conditions and the number of crashes?
+SELECT DISTINCT(roadway_surface_condition) as types_of_road_conditions, COUNT(*) as number_of_crasehes
+FROM crash_timeline
+GROUP BY types_of_road_conditions
+ORDER BY types_of_road_conditions;
+
+-- What is the crash_type and max amount difference between crash date and the date it was reported?
+--SELECT *, (Var1 - Var2) AS Diff FROM Sample;
+SELECT first_crash_type as types_of_crashes, crash_date - date_police_notified as date_diff
+From crash_timeline
+ORDER BY date_diff
+LIMIT 10;
